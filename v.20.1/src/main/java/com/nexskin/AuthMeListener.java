@@ -19,7 +19,6 @@ public class AuthMeListener implements Listener {
         Player player = event.getPlayer();
         plugin.getLogger().info("AuthMe: игрок " + player.getName() + " залогинился — применяем скин");
 
-        // Задержка 20 тиков после логина
         new SkinListener(plugin).applyDelayed(player, 20L);
     }
 }
