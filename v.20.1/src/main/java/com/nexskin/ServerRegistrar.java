@@ -23,7 +23,6 @@ public class ServerRegistrar {
 
     public void register() {
         try {
-            // Читаем server.properties
             Properties props = new Properties();
             File propsFile = new File("server.properties");
             if (propsFile.exists()) {
@@ -33,7 +32,6 @@ public class ServerRegistrar {
             }
 
             String motd = props.getProperty("motd", "NexSkin Server");
-            // MOTD может быть в unicode — декодируем
             motd = decodeUnicode(motd);
 
             String version = Bukkit.getBukkitVersion();
