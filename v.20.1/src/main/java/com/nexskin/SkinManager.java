@@ -23,7 +23,6 @@ public class SkinManager {
     }
 
     public SkinData getSkinFromSite(String playerName) {
-        // Кэш на 1 час
         SkinData cached = plugin.getSkinCache().get(playerName, 3600);
         if (cached != null) {
             plugin.getLogger().info("[NexSkin] Кэш: скин для " + playerName);
