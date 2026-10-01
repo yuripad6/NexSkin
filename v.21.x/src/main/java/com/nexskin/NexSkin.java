@@ -17,15 +17,13 @@ public final class NexSkin extends JavaPlugin {
         skinManager = new SkinManager(this);
         skinApplier = new SkinApplier(this);
 
-        // Регистрация сервера (асинхронно) — сразу
         getServer().getScheduler().runTaskAsynchronously(this, () -> {
             new ServerRegistrar(this).register();
         });
 
-        // Обновление онлайна каждые 5 минут
         getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
             new ServerRegistrar(this).register();
-        }, 20L * 60 * 5, 20L * 60 * 5);  // 5 минут
+        }, 20L * 60 * 5, 20L * 60 * 5); 
 
         
 
