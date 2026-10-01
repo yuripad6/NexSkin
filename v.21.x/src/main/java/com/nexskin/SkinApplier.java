@@ -25,7 +25,6 @@ public class SkinApplier {
                         skinData.getValue(), skinData.getSignature()));
                 player.setPlayerProfile(profile);
 
-                // Принудительное обновление модели для самого игрока
                 player.hidePlayer(plugin, player);
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
                     player.showPlayer(plugin, player);
