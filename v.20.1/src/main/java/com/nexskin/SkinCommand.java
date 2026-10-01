@@ -36,7 +36,7 @@ public class SkinCommand implements CommandExecutor {
     }
 
     private boolean isOnCooldown(Player player) {
-        if (isOwner(player)) return false; // Владелец без кулдауна
+        if (isOwner(player)) return false;
 
         long now = System.currentTimeMillis();
         Long last = cooldowns.get(player.getUniqueId());
@@ -73,11 +73,9 @@ public class SkinCommand implements CommandExecutor {
 
                 String input = args[0];
 
-                // URL — любой игрок (свой скин)
                 if (input.startsWith("http://") || input.startsWith("https://")) {
                     handleSetSkin(player, input, player);
                 }
-                // Ник — только админ / владелец
                 else {
                     if (!hasAdmin(sender)) {
                         sender.sendMessage(PREFIX + "§cУстановка чужих скинов — только для админа!");
