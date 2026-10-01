@@ -18,23 +18,20 @@ public class SkinListener implements Listener {
 
         if (authMeEnabled) {
             plugin.getLogger().info("AuthMe найден — скин будет применяться после логина");
-            // Регистрируем обработчик LoginEvent
             Bukkit.getPluginManager().registerEvents(new AuthMeListener(plugin), plugin);
         } else {
             plugin.getLogger().info("AuthMe не найден — скин применяется при входе");
         }
     }
 
-    // Без AuthMe — применяем при входе
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (authMeEnabled) return; // Если AuthMe есть — пропускаем, ждём LoginEvent
+        if (authMeEnabled) return;
 
         Player player = event.getPlayer();
         applyDelayed(player, 20L);
     }
 
-    // Общий метод для применения скина
     void applyDelayed(Player player, long delayTicks) {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             if (!player.isOnline()) return;
