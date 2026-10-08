@@ -1,0 +1,48 @@
+name: NexSkin
+version: 0.1.2-beta
+main: com.nexskin.NexSkin
+api-version: '1.21'
+author: yuripad6
+description: Скины без модов для пираток и лицензий
+website: https://nex-skin.blockchain-core-group.com
+softdepend: [AuthMe, PlaceholderAPI]
+
+commands:
+  setskin:
+    description: Установить скин
+    usage: /setskin <url|ник>
+    aliases: [skin, ss]
+    permission: nexskin.use
+    permission-message: '§cНет прав!'
+  clearskin:
+    description: Сбросить скин
+    usage: /clearskin
+    aliases: [cs]
+    permission: nexskin.use
+    permission-message: '§cНет прав!'
+  updateskin:
+    description: Обновить скин
+    usage: /updateskin
+    aliases: [us, skinreset, sr]
+    permission: nexskin.use
+    permission-message: '§cНет прав!'
+  nexskin:
+    description: Главная команда
+    usage: /nexskin <reload|key|info|dashboard|update>
+    aliases: [ns, nxs]
+    permission: nexskin.admin
+    permission-message: '§cНет прав!'
+  nexskinupdate:
+    description: Скачать обновление плагина
+    usage: /nexskinupdate
+    aliases: [nsu, nsupdate]
+    permission: nexskin.admin
+    permission-message: '§cНет прав!'
+
+permissions:
+  nexskin.use:
+    description: Использовать команды скинов (свой скин)
+    default: true
+  nexskin.admin:
+    description: Админ-доступ (скин по нику, reload, key, info, dashboard, update)
+    default: op
