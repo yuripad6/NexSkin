@@ -56,13 +56,11 @@ public class SkinCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         String cmdName = cmd.getName().toLowerCase();
 
-        // /nexskin — работает и из консоли
         if (cmdName.equals("nexskin")) {
             handleNexSkinCommand(sender, args);
             return true;
         }
 
-        // /nexskinupdate — только для админа, работает из консоли
         if (cmdName.equals("nexskinupdate")) {
             if (!hasAdmin(sender)) {
                 sender.sendMessage(PREFIX + "§cНет прав!");
@@ -73,7 +71,6 @@ public class SkinCommand implements CommandExecutor {
             return true;
         }
 
-        // Остальные — только для игроков
         if (!(sender instanceof Player player)) {
             sender.sendMessage("§cТолько для игроков!");
             return true;
