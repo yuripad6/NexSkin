@@ -70,7 +70,6 @@ public class ServerRegistrar {
             String json = readResponse(conn);
             JsonObject resp = JsonParser.parseString(json).getAsJsonObject();
 
-            // Блокировка
             if (resp.has("blocked") && !resp.get("blocked").isJsonNull()
                     && resp.get("blocked").getAsBoolean()) {
                 plugin.getLogger().severe("Сервер заблокирован: " +
@@ -79,7 +78,6 @@ public class ServerRegistrar {
                 return null;
             }
 
-            // server_key
             String serverKey = null;
             if (resp.has("server_key") && !resp.get("server_key").isJsonNull()) {
                 serverKey = resp.get("server_key").getAsString();
@@ -89,12 +87,10 @@ public class ServerRegistrar {
                 plugin.getLogger().warning("Сайт вернул null server_key");
             }
 
-            // platform_raw
             if (resp.has("platform_raw") && !resp.get("platform_raw").isJsonNull()) {
                 plugin.getConfigManager().setPlatformRaw(resp.get("platform_raw").getAsInt());
             }
 
-            // random_id
             if (resp.has("random_id") && !resp.get("random_id").isJsonNull()) {
                 plugin.getConfigManager().setRandomId(resp.get("random_id").getAsInt());
             }
