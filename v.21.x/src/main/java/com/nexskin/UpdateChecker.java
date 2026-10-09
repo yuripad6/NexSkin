@@ -22,10 +22,6 @@ public class UpdateChecker {
         this.plugin = plugin;
     }
 
-    /**
-     * Ручная проверка (по команде /nexskin update)
-     * Скачивает jar и уведомляет
-     */
     public void checkAndDownload(CommandSender sender) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
@@ -94,10 +90,6 @@ public class UpdateChecker {
         });
     }
 
-    /**
-     * Автопроверка + автоскачивание при старте
-     * Только уведомляет админа, БЕЗ перезапуска
-     */
     public void checkOnly() {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
@@ -120,7 +112,7 @@ public class UpdateChecker {
                 String currentVersion = plugin.getDescription().getVersion();
 
                 if (latestVersion.equals(currentVersion)) {
-                    return; // Уже последняя
+                    return;
                 }
 
                 String changelog = data.has("changelog")
@@ -130,14 +122,12 @@ public class UpdateChecker {
                 updateDir.mkdirs();
                 File newJar = new File(updateDir, "NexSkin-" + latestVersion + ".jar");
 
-                // Уже скачано — не качаем повторно
                 if (newJar.exists()) {
                     plugin.getLogger().info("Обновление " + latestVersion + " уже скачано, ждёт /restart");
                     notifyAdmins(latestVersion, currentVersion, mcVersion, changelog, true);
                     return;
                 }
 
-                // Скачиваем
                 plugin.getLogger().info("Найдена новая версия: " + latestVersion + ", скачиваем...");
                 String downloadUrl = data.get("url").getAsString();
                 downloadFile(downloadUrl, newJar);
@@ -169,9 +159,6 @@ public class UpdateChecker {
         });
     }
 
-    /**
-     * Уведомить админов онлайн
-     */
     private void notifyAdmins(String newVersion, String currentVersion,
                               String mcVersion, String changelog, boolean alreadyDownloaded) {
         Bukkit.getScheduler().runTask(plugin, () -> {
