@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '9.3.1'
+}
+
+group = 'com.nexskin'
+version = '0.1.6-beta-mc26.2'
+
+repositories {
+    mavenCentral()
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+    maven { url = uri("https://repo.codemc.io/repository/maven-public/") }
+    maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
+}
+
+dependencies {
+    compileOnly("io.papermc.paper:paper-api:26.2.build.+")
+    compileOnly("fr.xephi:authme:5.7.0")
+    compileOnly("me.clip:placeholderapi:2.11.6")
+    compileOnly("org.xerial:sqlite-jdbc:3.45.0.0")
+
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.bstats:bstats-bukkit:3.2.1'
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+shadowJar {
+    archiveBaseName.set('NexSkin')
+    archiveVersion.set(version)
+    archiveClassifier.set('')
+
+    minimize()
+
+    relocate 'com.google.gson', 'com.nexskin.libs.gson'
+    relocate 'org.bstats', 'com.nexskin.libs.bstats'
+
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/maven/**'
+    exclude 'META-INF/versions/**'
+    exclude '**/*.md'
+    exclude '**/*.txt'
+    exclude '**/LICENSE*'
+    exclude '**/NOTICE*'
+    exclude '**/module-info.class'
+    exclude '**/*.kotlin_module'
+    exclude '**/META-INF/native-image/**'
+    exclude '**/native/**'
+    exclude '**/*.dylib'
+    exclude '**/*.so'
+    exclude '**/*.dll'
+}
+
+tasks.build {
+    dependsOn(tasks.shadowJar)
+}
