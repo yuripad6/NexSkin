@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '9.4.2'
+}
+
+group = 'com.nexskin'
+version = '0.1.0-beta'
+
+repositories {
+    mavenCentral()
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+    maven { url = uri("https://libraries.minecraft.net/") }
+}
+
+dependencies {
+    compileOnly 'com.velocitypowered:velocity-api:3.3.0-SNAPSHOT'
+    annotationProcessor 'com.velocitypowered:velocity-api:3.3.0-SNAPSHOT'
+    compileOnly 'com.mojang:authlib:6.0.54'
+
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.bstats:bstats-velocity:3.2.1'
+    implementation 'org.yaml:snakeyaml:2.2'
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+shadowJar {
+    archiveBaseName.set('NexSkin-Velocity')
+    archiveVersion.set(version)
+    archiveClassifier.set('')
+
+    minimize()
+
+    relocate 'com.google.gson', 'com.nexskin.libs.gson'
+    relocate 'org.bstats', 'com.nexskin.libs.bstats'
+    relocate 'org.yaml', 'com.nexskin.libs.yaml'
+
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/maven/**'
+    exclude '**/*.md'
+    exclude '**/*.txt'
+}
+
+tasks.build {
+    dependsOn(tasks.shadowJar)
+}
