@@ -67,6 +67,10 @@ public class SkinApplier {
             PlayerProfile profile = player.getPlayerProfile();
             profile.removeProperty("textures");
 
+<<<<<<< HEAD
+=======
+            // Тянем Стива с сайта
+>>>>>>> 6077e64 (Initial commit)
             SkinManager.SkinData steve = plugin.getSkinManager().getSkinFromSite("Steve");
             if (steve != null && steve.getValue() != null && steve.getSignature() != null) {
                 profile.setProperty(new ProfileProperty("textures",
@@ -86,7 +90,13 @@ public class SkinApplier {
         }
     }
 
+<<<<<<< HEAD
 
+=======
+    /**
+     * Проигрывает партиклы и звук при смене скина.
+     */
+>>>>>>> 6077e64 (Initial commit)
     private void playEffects(Player player, EffectType type) {
         boolean particlesEnabled = plugin.getConfig().getBoolean("particles", true);
         boolean soundsEnabled = plugin.getConfig().getBoolean("sounds", true);
@@ -96,6 +106,10 @@ public class SkinApplier {
         switch (type) {
             case SUCCESS -> {
                 if (particlesEnabled) {
+<<<<<<< HEAD
+=======
+                    // Зелёные искры + белые частицы
+>>>>>>> 6077e64 (Initial commit)
                     player.getWorld().spawnParticle(
                             Particle.HAPPY_VILLAGER,
                             player.getLocation().add(0, 1, 0),
@@ -117,6 +131,10 @@ public class SkinApplier {
             }
             case RESET -> {
                 if (particlesEnabled) {
+<<<<<<< HEAD
+=======
+                    // Серый дым — сброс
+>>>>>>> 6077e64 (Initial commit)
                     player.getWorld().spawnParticle(
                             Particle.SMOKE,
                             player.getLocation().add(0, 1, 0),
@@ -138,4 +156,8 @@ public class SkinApplier {
         SUCCESS,
         RESET
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6077e64 (Initial commit)

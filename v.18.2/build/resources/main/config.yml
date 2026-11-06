@@ -1,0 +1,11 @@
+# NexSkin configuration
+
+metrics: true
+debug: false
+
+# Эффекты
+particles: true
+sounds: true
+
+# Автопроверка обновлений при старте (только уведомление + скачивание)
+auto-update-check: true

@@ -1,8 +1,15 @@
 name: NexSkin
+<<<<<<< HEAD
 version: 0.1.2-beta
 main: com.nexskin.NexSkin
 api-version: '1.21'
 author: yuripad6
+=======
+version: 0.1.6-beta
+main: com.nexskin.NexSkin
+api-version: '1.21'
+author: zellar
+>>>>>>> 6077e64 (Initial commit)
 description: Скины без модов для пираток и лицензий
 website: https://nex-skin.blockchain-core-group.com
 softdepend: [AuthMe, PlaceholderAPI]

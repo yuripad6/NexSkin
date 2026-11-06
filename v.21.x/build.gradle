@@ -4,7 +4,11 @@ plugins {
 }
 
 group = 'com.nexskin'
+<<<<<<< HEAD
 version = '0.1.2-beta-mc1.21'
+=======
+version = '0.1.6-beta-mc1.21'
+>>>>>>> 6077e64 (Initial commit)
 
 repositories {
     mavenCentral()
@@ -17,9 +21,15 @@ dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
     compileOnly 'fr.xephi:authme:5.7.0'
     compileOnly 'me.clip:placeholderapi:2.11.6'
+<<<<<<< HEAD
 
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'org.xerial:sqlite-jdbc:3.45.0.0'
+=======
+    compileOnly 'org.xerial:sqlite-jdbc:3.45.0.0'
+
+    implementation 'com.google.code.gson:gson:2.10.1'
+>>>>>>> 6077e64 (Initial commit)
     implementation 'org.bstats:bstats-bukkit:3.2.1'
 }
 
@@ -38,9 +48,33 @@ shadowJar {
     archiveVersion.set(version)
     archiveClassifier.set('')
 
+<<<<<<< HEAD
     relocate 'com.google.gson', 'com.nexskin.libs.gson'
     relocate 'org.sqlite', 'com.nexskin.libs.sqlite'
     relocate 'org.bstats', 'com.nexskin.libs.bstats'
+=======
+    minimize()
+
+    relocate 'com.google.gson', 'com.nexskin.libs.gson'
+    relocate 'org.bstats', 'com.nexskin.libs.bstats'
+
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/maven/**'
+    exclude 'META-INF/versions/**'
+    exclude '**/*.md'
+    exclude '**/*.txt'
+    exclude '**/LICENSE*'
+    exclude '**/NOTICE*'
+    exclude '**/module-info.class'
+    exclude '**/*.kotlin_module'
+    exclude '**/META-INF/native-image/**'
+    exclude '**/native/**'
+    exclude '**/*.dylib'
+    exclude '**/*.so'
+    exclude '**/*.dll'
+>>>>>>> 6077e64 (Initial commit)
 }
 
 tasks.build {

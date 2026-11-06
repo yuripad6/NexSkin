@@ -15,6 +15,10 @@ public final class NexSkin extends JavaPlugin {
     private SkinApplier skinApplier;
     private SkinCache skinCache;
     private ConfigManager configManager;
+<<<<<<< HEAD
+=======
+    private UpdateChecker updateChecker;
+>>>>>>> 6077e64 (Initial commit)
 
     private static final String API_BASE =
             "https://nex-skin.blockchain-core-group.com/api/";
@@ -29,8 +33,13 @@ public final class NexSkin extends JavaPlugin {
         skinCache = new SkinCache(this);
         skinManager = new SkinManager(this);
         skinApplier = new SkinApplier(this);
+<<<<<<< HEAD
 
         configManager = new ConfigManager(this);
+=======
+        configManager = new ConfigManager(this);
+        updateChecker = new UpdateChecker(this);
+>>>>>>> 6077e64 (Initial commit)
 
         String existingKey = configManager.getServerKey();
         File dataFile = configManager.getDataFile();
@@ -66,6 +75,10 @@ public final class NexSkin extends JavaPlugin {
                     + existingKey.substring(0, Math.min(8, existingKey.length())) + "...");
         }
 
+<<<<<<< HEAD
+=======
+        // Регистрация на сайте каждые 5 минут
+>>>>>>> 6077e64 (Initial commit)
         getServer().getScheduler().runTaskTimerAsynchronously(this, () ->
                         new ServerRegistrar(this).register(),
                 20L * 60 * 5, 20L * 60 * 5);
@@ -93,11 +106,20 @@ public final class NexSkin extends JavaPlugin {
             getLogger().info("PlaceholderAPI найден — плейсхолдеры зарегистрированы");
         }
 
+<<<<<<< HEAD
         // Автопроверка обновлений через 1 минуту после старта
         if (getConfig().getBoolean("auto-update-check", true)) {
             getServer().getScheduler().runTaskLaterAsynchronously(this, () -> {
                 new UpdateChecker(this).checkOnly();
             }, 20L * 60);
+=======
+        // Автопроверка обновлений: первая через 1 минуту, потом каждые 5 минут
+        if (getConfig().getBoolean("auto-update-check", true)) {
+            getServer().getScheduler().runTaskTimerAsynchronously(this,
+                    updateChecker::checkOnly,
+                    20L * 60,           // первый запуск через 1 минуту
+                    20L * 60 * 5);      // потом каждые 5 минут
+>>>>>>> 6077e64 (Initial commit)
         }
 
         getLogger().info("NexSkin v" + getDescription().getVersion() + " включён!");
@@ -147,4 +169,8 @@ public final class NexSkin extends JavaPlugin {
     public SkinApplier getSkinApplier() { return skinApplier; }
     public SkinCache getSkinCache() { return skinCache; }
     public ConfigManager getConfigManager() { return configManager; }
+<<<<<<< HEAD
+=======
+    public UpdateChecker getUpdateChecker() { return updateChecker; }
+>>>>>>> 6077e64 (Initial commit)
 }

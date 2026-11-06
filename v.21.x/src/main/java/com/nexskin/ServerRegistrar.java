@@ -37,9 +37,21 @@ public class ServerRegistrar {
             String name = getMotd();
             int online = Bukkit.getOnlinePlayers().size();
 
+<<<<<<< HEAD
             plugin.getLogger().info("Регистрация: core=" + core
                     + ", server=" + serverVersion
                     + ", plugin=" + pluginVersion);
+=======
+            String existingKey = plugin.getConfigManager().getServerKey();
+            boolean hasKey = existingKey != null && !existingKey.isEmpty();
+
+            // Логируем только при первой регистрации (без ключа)
+            if (!hasKey) {
+                plugin.getLogger().info("Регистрация: core=" + core
+                        + ", server=" + serverVersion
+                        + ", plugin=" + pluginVersion + ", key=нет");
+            }
+>>>>>>> 6077e64 (Initial commit)
 
             String apiUrl = plugin.getApiUrl() + "register_server.php";
             URL url = new URL(apiUrl);
@@ -51,11 +63,33 @@ public class ServerRegistrar {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestProperty("User-Agent", "NexSkin/1.0");
 
+<<<<<<< HEAD
             String data = "core=" + core
                     + "&server_version=" + URLEncoder.encode(serverVersion, "UTF-8")
                     + "&plugin_version=" + URLEncoder.encode(pluginVersion, "UTF-8")
                     + "&name=" + URLEncoder.encode(name, "UTF-8")
                     + "&online=" + online;
+=======
+            // HMAC-заголовки (только если есть server_key)
+            if (hasKey) {
+                String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+                String signature = HmacUtil.sha256(existingKey + timestamp, existingKey);
+
+                conn.setRequestProperty("X-Server-Key", existingKey);
+                conn.setRequestProperty("X-Timestamp", timestamp);
+                conn.setRequestProperty("X-Signature", signature);
+            }
+
+            // Тело запроса — без server_key (он теперь в заголовках)
+            StringBuilder dataBuilder = new StringBuilder();
+            dataBuilder.append("core=").append(core)
+                    .append("&server_version=").append(URLEncoder.encode(serverVersion, "UTF-8"))
+                    .append("&plugin_version=").append(URLEncoder.encode(pluginVersion, "UTF-8"))
+                    .append("&name=").append(URLEncoder.encode(name, "UTF-8"))
+                    .append("&online=").append(online);
+
+            String data = dataBuilder.toString();
+>>>>>>> 6077e64 (Initial commit)
 
             try (OutputStream os = conn.getOutputStream()) {
                 os.write(data.getBytes(StandardCharsets.UTF_8));
@@ -81,9 +115,19 @@ public class ServerRegistrar {
             String serverKey = null;
             if (resp.has("server_key") && !resp.get("server_key").isJsonNull()) {
                 serverKey = resp.get("server_key").getAsString();
+<<<<<<< HEAD
                 plugin.getConfigManager().setServerKey(serverKey);
                 plugin.getLogger().info("server-key сохранён в data.yml");
             } else {
+=======
+
+                // Сохраняем и логируем только при первой регистрации
+                if (!hasKey) {
+                    plugin.getConfigManager().setServerKey(serverKey);
+                    plugin.getLogger().info("server-key сохранён в data.yml");
+                }
+            } else if (!hasKey) {
+>>>>>>> 6077e64 (Initial commit)
                 plugin.getLogger().warning("Сайт вернул null server_key");
             }
 
@@ -139,4 +183,8 @@ public class ServerRegistrar {
         }
         return sb.toString();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6077e64 (Initial commit)

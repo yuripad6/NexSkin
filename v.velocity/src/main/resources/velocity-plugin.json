@@ -1,0 +1,8 @@
+{
+    "id": "nexskin",
+    "name": "NexSkin",
+    "version": "0.1.0-beta",
+    "description": "Скины без модов для пираток и лицензий",
+    "authors": ["zellar"],
+    "main": "com.nexskin.velocity.NexSkinVelocity"
+}

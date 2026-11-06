@@ -37,9 +37,15 @@ public class SkinManager {
 
         HttpURLConnection conn = null;
         try {
+<<<<<<< HEAD
             String url = plugin.getApiUrl() + "get_skin.php?name="
                     + URLEncoder.encode(playerName, "UTF-8")
                     + "&server_key=" + URLEncoder.encode(serverKey, "UTF-8");
+=======
+            // URL без server_key — он теперь в заголовках
+            String url = plugin.getApiUrl() + "get_skin.php?name="
+                    + URLEncoder.encode(playerName, "UTF-8");
+>>>>>>> 6077e64 (Initial commit)
 
             conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod("GET");
@@ -47,8 +53,25 @@ public class SkinManager {
             conn.setReadTimeout(10000);
             conn.setRequestProperty("User-Agent", "NexSkin/1.0");
 
+<<<<<<< HEAD
             int code = conn.getResponseCode();
             if (code == 204) return null;  // скина нет
+=======
+            // HMAC-заголовки
+            String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+            String signature = HmacUtil.sha256(serverKey + timestamp, serverKey);
+
+            conn.setRequestProperty("X-Server-Key", serverKey);
+            conn.setRequestProperty("X-Timestamp", timestamp);
+            conn.setRequestProperty("X-Signature", signature);
+
+            int code = conn.getResponseCode();
+            if (code == 204) return null;  // скина нет
+            if (code == 401) {
+                plugin.getLogger().warning("get_skin: HMAC отклонён (401)");
+                return null;
+            }
+>>>>>>> 6077e64 (Initial commit)
             if (code != 200) {
                 if (plugin.getConfig().getBoolean("debug", false)) {
                     plugin.getLogger().warning("Сайт вернул код: " + code);
@@ -71,11 +94,19 @@ public class SkinManager {
 
             if (data.has("value") && data.has("signature")) {
                 String value = data.get("value").getAsString();
+<<<<<<< HEAD
                 String signature = data.get("signature").getAsString();
                 if (value.isEmpty() || signature.isEmpty()) return null;
 
                 SkinData result = new SkinData(playerName, value, signature);
                 plugin.getSkinCache().put(playerName, value, signature);
+=======
+                String sig = data.get("signature").getAsString();
+                if (value.isEmpty() || sig.isEmpty()) return null;
+
+                SkinData result = new SkinData(playerName, value, sig);
+                plugin.getSkinCache().put(playerName, value, sig);
+>>>>>>> 6077e64 (Initial commit)
                 return result;
             }
         } catch (Exception e) {

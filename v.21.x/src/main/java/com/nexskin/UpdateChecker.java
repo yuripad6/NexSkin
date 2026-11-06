@@ -22,6 +22,13 @@ public class UpdateChecker {
         this.plugin = plugin;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Ручная проверка (по команде /nexskin update)
+     * Скачивает jar и уведомляет
+     */
+>>>>>>> 6077e64 (Initial commit)
     public void checkAndDownload(CommandSender sender) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
@@ -90,6 +97,14 @@ public class UpdateChecker {
         });
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Автопроверка при старте и по таймеру (каждые 5 минут).
+     * Если версия актуальна — пишет в лог.
+     * Если есть новая — скачивает и уведомляет админов.
+     */
+>>>>>>> 6077e64 (Initial commit)
     public void checkOnly() {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
@@ -111,7 +126,14 @@ public class UpdateChecker {
                 String latestVersion = data.get("version").getAsString();
                 String currentVersion = plugin.getDescription().getVersion();
 
+<<<<<<< HEAD
                 if (latestVersion.equals(currentVersion)) {
+=======
+                // Версия актуальна — пишем в лог
+                if (latestVersion.equals(currentVersion)) {
+                    plugin.getLogger().info("У тебя актуальная версия: "
+                            + currentVersion + " (MC " + mcVersion + ")");
+>>>>>>> 6077e64 (Initial commit)
                     return;
                 }
 
@@ -122,12 +144,20 @@ public class UpdateChecker {
                 updateDir.mkdirs();
                 File newJar = new File(updateDir, "NexSkin-" + latestVersion + ".jar");
 
+<<<<<<< HEAD
+=======
+                // Уже скачано — не качаем повторно
+>>>>>>> 6077e64 (Initial commit)
                 if (newJar.exists()) {
                     plugin.getLogger().info("Обновление " + latestVersion + " уже скачано, ждёт /restart");
                     notifyAdmins(latestVersion, currentVersion, mcVersion, changelog, true);
                     return;
                 }
 
+<<<<<<< HEAD
+=======
+                // Скачиваем
+>>>>>>> 6077e64 (Initial commit)
                 plugin.getLogger().info("Найдена новая версия: " + latestVersion + ", скачиваем...");
                 String downloadUrl = data.get("url").getAsString();
                 downloadFile(downloadUrl, newJar);
@@ -159,6 +189,12 @@ public class UpdateChecker {
         });
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Уведомить админов онлайн
+     */
+>>>>>>> 6077e64 (Initial commit)
     private void notifyAdmins(String newVersion, String currentVersion,
                               String mcVersion, String changelog, boolean alreadyDownloaded) {
         Bukkit.getScheduler().runTask(plugin, () -> {
@@ -224,4 +260,8 @@ public class UpdateChecker {
         for (byte b : hash) hexString.append(String.format("%02x", b));
         return hexString.toString();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6077e64 (Initial commit)

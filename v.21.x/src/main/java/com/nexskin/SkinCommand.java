@@ -56,11 +56,19 @@ public class SkinCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         String cmdName = cmd.getName().toLowerCase();
 
+<<<<<<< HEAD
+=======
+        // /nexskin — работает и из консоли
+>>>>>>> 6077e64 (Initial commit)
         if (cmdName.equals("nexskin")) {
             handleNexSkinCommand(sender, args);
             return true;
         }
 
+<<<<<<< HEAD
+=======
+        // /nexskinupdate — только для админа, работает из консоли
+>>>>>>> 6077e64 (Initial commit)
         if (cmdName.equals("nexskinupdate")) {
             if (!hasAdmin(sender)) {
                 sender.sendMessage(PREFIX + "§cНет прав!");
@@ -71,6 +79,10 @@ public class SkinCommand implements CommandExecutor {
             return true;
         }
 
+<<<<<<< HEAD
+=======
+        // Остальные — только для игроков
+>>>>>>> 6077e64 (Initial commit)
         if (!(sender instanceof Player player)) {
             sender.sendMessage("§cТолько для игроков!");
             return true;
@@ -245,4 +257,8 @@ public class SkinCommand implements CommandExecutor {
             });
         });
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6077e64 (Initial commit)
